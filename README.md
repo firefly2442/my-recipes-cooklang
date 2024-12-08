@@ -27,6 +27,14 @@ Access the web-ui at: `http://localhost:9080`
 * The server will hot-load recipe changes so refresh the browser
 and you will see updates.
 
+## Checking Spelling
+
+```shell
+docker ps
+docker exec -it <id> bash
+python3 check-spelling.py
+```
+
 ## References
 
 * [https://github.com/cooklang/cookcli](https://github.com/cooklang/cookcli)

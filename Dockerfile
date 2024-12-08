@@ -6,9 +6,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt update && \
     DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata && \
-    apt install -y --no-install-recommends nano ca-certificates curl && \
+    apt install -y --no-install-recommends nano ca-certificates curl python3 python3-pip python3-venv aspell aspell-en && \
     apt -y upgrade && \
     apt autoremove -y
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # https://github.com/cooklang/cookcli/releases
 # 'musl' is statically linked, 'gnu' is dynamically linked
@@ -26,6 +30,8 @@ RUN curl -LO https://github.com/Zheoni/cooklang-chef/releases/latest/download/ch
 #RUN mkdir -p /recipes
 
 #COPY recipes /recipes/
+
+COPY check-spelling.py /
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s \
    CMD curl --fail localhost:9080 || exit 1
