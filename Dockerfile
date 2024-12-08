@@ -23,9 +23,17 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # This web-ui seems more feature-rich than the official cooklang one.
 # https://github.com/Zheoni/cooklang-chef/releases
 # 'musl' is statically linked, 'gnu' is dynamically linked
-RUN curl -LO https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-x86_64-unknown-linux-gnu.tar.gz && \
-    tar -zxvf chef-x86_64-unknown-linux-gnu.tar.gz -C /usr/local/bin && \
-    rm -rf chef-x86_64-unknown-linux-gnu.tar.gz
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-x86_64-unknown-linux-gnu.tar.gz"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-aarch64-unknown-linux-gnu.tar.gz"; \
+    else \
+        echo "Unsupported architecture: $ARCH"; exit 1; \
+    fi && \
+    curl -LO "$BINARY_URL" && \
+    tar -zxvf $(basename "$BINARY_URL") -C /usr/local/bin && \
+    rm -rf $(basename "$BINARY_URL")
 
 #RUN mkdir -p /recipes
 
