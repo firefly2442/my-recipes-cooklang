@@ -1,0 +1,9 @@
+services:
+
+  cookcli:
+    build: ./
+    hostname: cookcli
+    ports:
+      - "9080:9080"
+    volumes:
+      - "./recipes/:/recipes/:ro"
