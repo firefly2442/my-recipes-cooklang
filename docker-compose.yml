@@ -7,3 +7,5 @@ services:
       - "9080:9080"
     volumes:
       - "./recipes/:/recipes/:ro"
+    restart: unless-stopped
+    
