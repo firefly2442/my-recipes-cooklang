@@ -5,8 +5,6 @@ folder_path = Path("/recipes")
 
 for file in folder_path.iterdir():
     if file.is_file() and file.suffix == ".cook":
-        print(f"Processing file: {file}")
-
         with open(file, 'r') as readfile:
             text = readfile.read()
 
@@ -16,4 +14,6 @@ for file in folder_path.iterdir():
 
         # Pass the processed text to aspell
         process = subprocess.run(['aspell', '--lang', 'en', '--ignore-case', 'list'], input=text, text=True, capture_output=True)
-        print(process.stdout)
+        if (process.stdout and process.stdout != ""):
+            print(f"Check file: {file}")
+            print(process.stdout)
