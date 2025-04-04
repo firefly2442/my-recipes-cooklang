@@ -25,9 +25,9 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # 'musl' is statically linked, 'gnu' is dynamically linked
 RUN ARCH=$(uname -m) && \
     if [ "$ARCH" = "x86_64" ]; then \
-        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-x86_64-unknown-linux-gnu.tar.gz"; \
+        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-x86_64-unknown-linux-musl.tar.gz"; \
     elif [ "$ARCH" = "aarch64" ]; then \
-        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-aarch64-unknown-linux-gnu.tar.gz"; \
+        BINARY_URL="https://github.com/Zheoni/cooklang-chef/releases/latest/download/chef-aarch64-unknown-linux-musl.tar.gz"; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
     fi && \
