@@ -11,6 +11,7 @@ jobs:
   buildimage:
     permissions:
       contents: read # for actions/checkout to fetch code
+      packages: write # to write to the registry
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
