@@ -44,6 +44,8 @@ COPY check-spelling.py /
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s \
    CMD curl --fail localhost:9080 || exit 1
 
+COPY recipes /recipescopied
+
 WORKDIR /
 
 # https://github.com/Zheoni/cooklang-chef/blob/main/docs/cli.md#configuration
@@ -51,5 +53,9 @@ WORKDIR /
 #COPY config.toml /recipes/.cooklang/config.toml
 
 #ENTRYPOINT ["cook", "server", "--host", "./recipes"]
-ENTRYPOINT ["chef", "serve", "--host", "--port", "9080", "--path", "./recipes"]
+# for development, recipes are read-only mounted by docker-compose
+#ENTRYPOINT ["chef", "serve", "--host", "--port", "9080", "--path", "./recipes"]
+# for production, recipes are copied over
+ENTRYPOINT ["chef", "serve", "--host", "--port", "9080", "--path", "./recipescopied"]
+
 #ENTRYPOINT [ "tail", "-f", "/dev/null" ]
