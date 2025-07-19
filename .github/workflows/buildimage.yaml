@@ -1,11 +1,17 @@
 name: buildimage
 
+# validate YAML
+# https://codebeautify.org/yaml-validator
+
 on:
   # workflow_dispatch is required in order to manually run this workflow
   workflow_dispatch:
   schedule:
     # run weekly on Mondays
     - cron: "0 13 * * 1"
+  push:
+    branches:
+      - master
 
 jobs:
   buildimage:
