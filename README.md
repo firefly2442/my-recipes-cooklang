@@ -26,6 +26,7 @@ Access the web-ui at: `http://localhost:9080`
 * Images must match up with the `.cook` filename to appear.
 * The server will hot-load recipe changes so refresh the browser
 and you will see updates.
+* Use `chef list -l` to check the recipes in a directory for any issues.
 
 ## Checking Spelling
 
