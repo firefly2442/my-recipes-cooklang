@@ -1,0 +1,14 @@
+name: Delete untagged GHCR images
+on:
+  workflow_dispatch:
+  schedule:
+    # run weekly on Mondays
+    - cron: "0 13 * * 1"
+
+jobs:
+  delete-untagged:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: step-security/ghcr-cleanup-action@v1
